@@ -19,7 +19,7 @@ async def list_players():
     return players
 
 
-@api.post("/players/")
+@api.post("/players/", response_model=PlayerOut)
 async def add_player(player_in: PlayerIn):
     player_in = player_in.dict()
     local_player_in = Player(name=player_in["name"], points=player_in["points"])
