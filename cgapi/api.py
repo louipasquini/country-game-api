@@ -13,13 +13,13 @@ from sqlmodel import select
 api = FastAPI(title="CGApi")
 
 
-@api.get("/players/", response_model=List[PlayerOut])
+@api.get("/", response_model=List[PlayerOut])
 async def list_players():
     players = get_players_from_database()
     return players
 
 
-@api.post("/players/", response_model=PlayerOut)
+@api.post("/", response_model=PlayerOut)
 async def add_player(player_in: PlayerIn):
     player_in = player_in.dict()
     local_player_in = Player(name=player_in["name"], points=player_in["points"])
