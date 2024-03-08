@@ -2,6 +2,8 @@ from datetime import datetime
 from typing import List
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from cgapi.core import get_players_from_database
 from cgapi.database import get_session
@@ -12,6 +14,12 @@ from sqlmodel import select
 
 api = FastAPI(title="CGApi")
 
+api.add_middleware(
+  CORSMiddleware,
+  allow_origins=["*"],
+  allow_credentials=True,
+  allow_methods=["GET", "POST", "PUT", "DELETE"],
+  allow_headers=["*"])
 
 @api.get("/", response_model=List[PlayerOut])
 async def list_players():
